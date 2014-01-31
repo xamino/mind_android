@@ -9,6 +9,7 @@ import android.net.wifi.ScanResult;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 
 import java.util.List;
@@ -20,6 +21,7 @@ public class MainActivity extends Activity {
     List<ScanResult> wifiList;
     private StringBuilder sb;
     private TextView mainText;
+    private final String TAG = "MIND";
 
     /**
      * Called when the activity is first created.
@@ -35,10 +37,10 @@ public class MainActivity extends Activity {
     private void init() {
         mngr = (WifiManager)getSystemService(Context.WIFI_SERVICE);
         proc = new WifiScanProcessor();
-        mainText = (TextView) findViewById(R.id.mainText);
+        mainText = (TextView) findViewById(R.id.textOutput);
 
         if (!mngr.isWifiEnabled()){
-            Log.e("MIND", "Wifi Disabled!");
+            Log.e(TAG, "Wifi Disabled!");
         }
         else {
             registerReceiver(proc, new IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION));
@@ -49,7 +51,7 @@ public class MainActivity extends Activity {
 
     }
 
-    private void refreshScan(){
+    public void refreshScan(View v){
         mngr.startScan();
         mainText.setText("\\nStarting Scan...\\n");
     }

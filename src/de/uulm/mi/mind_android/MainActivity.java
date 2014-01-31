@@ -49,6 +49,11 @@ public class MainActivity extends Activity {
 
     }
 
+    private void refreshScan(){
+        mngr.startScan();
+        mainText.setText("\\nStarting Scan...\\n");
+    }
+
     protected void onPause() {
         unregisterReceiver(proc);
         super.onPause();

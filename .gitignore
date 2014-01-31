@@ -23,4 +23,4 @@ local.properties
 proguard/
 
 /.idea
-*.iml
+/*.iml

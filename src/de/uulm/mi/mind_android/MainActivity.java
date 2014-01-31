@@ -71,7 +71,7 @@ public class MainActivity extends Activity {
                 sb.append("\\n");
             }
             mainText.setText(sb);
-            
+
         }
     }
 }

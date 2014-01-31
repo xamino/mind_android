@@ -1,25 +1,21 @@
 package de.uulm.mi.mind_android;
 
 import android.app.Activity;
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
+import android.content.*;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+import de.uulm.mi.mind_android.data.WifiInfo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends Activity {
 
-    private WifiManager mngr;
-    private WifiScanProcessor proc;
-    private List<ScanResult> wifiList;
-    private StringBuilder sb;
+
     private TextView mainText;
     private final String TAG = "MIND";
 
@@ -35,20 +31,10 @@ public class MainActivity extends Activity {
     }
 
     private void init() {
-        startService(new Intent(this, WifiScannerService.class));
-
-        mngr = (WifiManager)getSystemService(Context.WIFI_SERVICE);
-        proc = new WifiScanProcessor();
         mainText = (TextView) findViewById(R.id.textOutput);
-
-        if (!mngr.isWifiEnabled()){
-            Log.e(TAG, "Wifi Disabled!");
-        }
-        else {
-            registerReceiver(proc, new IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION));
-            mngr.startScan();
-            mainText.setText("\\nStarting Scan...\\n");
-        }
+        ResponseReceiver receiver = new ResponseReceiver();
+        registerReceiver(receiver, new IntentFilter("testMePlease"));
+        startService(new Intent(this, WifiScannerService.class));
     }
 
     // Broadcast receiver for receiving status updates from the IntentService
@@ -58,44 +44,21 @@ public class MainActivity extends Activity {
         private ResponseReceiver() {
         }
         // Called when the BroadcastReceiver gets an Intent it's registered to receive
-
         public void onReceive(Context context, Intent intent) {
+            ArrayList<WifiInfo> infolist = intent.getParcelableArrayListExtra("info");
 
-        /*
-         * Handle Intents here.
-         */
+            Log.d("MIND", "Activity received WifiInfo Intent");
 
-        }
-    }
-
-    public void refreshScan(View v){
-        mngr.startScan();
-        mainText.setText("\\nStarting Scan...\\n");
-    }
-
-    protected void onPause() {
-        unregisterReceiver(proc);
-        super.onPause();
-    }
-
-    protected void onResume() {
-        registerReceiver(proc, new IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION));
-        super.onResume();
-    }
-
-
-    private class WifiScanProcessor extends BroadcastReceiver {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            sb = new StringBuilder();
-            wifiList = mngr.getScanResults();
-            for(int i = 0; i < wifiList.size(); i++){
-                sb.append(new Integer(i+1).toString() + ".");
-                sb.append((wifiList.get(i)).toString());
-                sb.append("\\n");
+            StringBuilder sb = new StringBuilder();
+            for (WifiInfo w : infolist){
+                sb.append(w.SSID);
+                sb.append('|');
+                sb.append(w.MAC);
+                sb.append('|');
+                sb.append(w.LEVEL);
+                sb.append('\n');
             }
-            mainText.setText(sb);
-
+            mainText.setText(sb.toString());
         }
     }
 }

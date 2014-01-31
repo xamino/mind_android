@@ -35,6 +35,8 @@ public class MainActivity extends Activity {
     }
 
     private void init() {
+        startService(new Intent(this, WifiScannerService.class));
+
         mngr = (WifiManager)getSystemService(Context.WIFI_SERVICE);
         proc = new WifiScanProcessor();
         mainText = (TextView) findViewById(R.id.textOutput);
@@ -47,7 +49,23 @@ public class MainActivity extends Activity {
             mngr.startScan();
             mainText.setText("\\nStarting Scan...\\n");
         }
+    }
 
+    // Broadcast receiver for receiving status updates from the IntentService
+    private class ResponseReceiver extends BroadcastReceiver
+    {
+        // Prevents instantiation
+        private ResponseReceiver() {
+        }
+        // Called when the BroadcastReceiver gets an Intent it's registered to receive
+
+        public void onReceive(Context context, Intent intent) {
+
+        /*
+         * Handle Intents here.
+         */
+
+        }
     }
 
     public void refreshScan(View v){

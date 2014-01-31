@@ -21,6 +21,7 @@ public class MainActivity extends Activity {
     private List<ScanResult> wifiList;
     private StringBuilder sb;
     private TextView mainText;
+    private final String TAG = "MIND";
 
     /**
      * Called when the activity is first created.
@@ -39,7 +40,7 @@ public class MainActivity extends Activity {
         mainText = (TextView) findViewById(R.id.textOutput);
 
         if (!mngr.isWifiEnabled()){
-            Log.e("MIND", "Wifi Disabled!");
+            Log.e(TAG, "Wifi Disabled!");
         }
         else {
             registerReceiver(proc, new IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION));

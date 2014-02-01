@@ -22,6 +22,7 @@ public class WifiScannerService extends IntentService {
     private WifiManager mngr;
     private final String TAG = "MIND";
     private WifiScanProcessor proc;
+    private boolean waiting = true;
 
     /**
      * Creates an IntentService.  Invoked by your subclass's constructor.
@@ -37,6 +38,7 @@ public class WifiScannerService extends IntentService {
 
         mngr = (WifiManager)getSystemService(Context.WIFI_SERVICE);
         proc = new WifiScanProcessor();
+        registerReceiver(proc, new IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION));
     }
 
     @Override
@@ -45,16 +47,33 @@ public class WifiScannerService extends IntentService {
             Log.w(TAG, "Wifi Disabled!");
         }
         else {
-            Log.d("MIND", "Start scanning");
-            registerReceiver(proc, new IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION));
-            mngr.startScan();
+            while (true) // forever and ever!!!
+            {
+                waiting = true;
+                Log.d("MIND", "Start scanning");
+                mngr.startScan();
+                while (waiting)  {
+                    try {
+                        Thread.sleep(200);
+                    } catch (InterruptedException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                    Log.d("MIND","Waiting for scan results..");
+                }
+            }
         }
+    }
+
+    @Override
+    public void onDestroy() {
+        unregisterReceiver(proc);
+        super.onDestroy();
     }
 
     private class WifiScanProcessor extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
-
             Log.d("MIND", "Wifi scan complete");
 
             StringBuilder sb = new StringBuilder();
@@ -69,6 +88,8 @@ public class WifiScannerService extends IntentService {
             Intent wifiInfoListIntent = new Intent("testMePlease");
             wifiInfoListIntent.putParcelableArrayListExtra("info",wifiInfoList);
             sendBroadcast(wifiInfoListIntent);
+
+            waiting = false;
         }
     }
 }

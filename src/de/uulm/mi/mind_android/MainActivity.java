@@ -1,14 +1,17 @@
 package de.uulm.mi.mind_android;
 
 import android.app.Activity;
+import android.content.*;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
 import de.uulm.mi.mind_android.data.WifiInfo;
 
 import java.util.ArrayList;
 
-public class MainActivity extends Activity implements WifiScannerListener {
+public class MainActivity extends Activity {
 
+    private TextView mainText;
     private final String TAG = "MIND";
 
     /**
@@ -19,24 +22,38 @@ public class MainActivity extends Activity implements WifiScannerListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
-        // Start Wifiscanner:
-        new WifiScanner().execute(this);
+        init();
     }
 
-    protected void onPause() {
-        super.onPause();
+    private void init() {
+        mainText = (TextView) findViewById(R.id.textOutput);
+        ResponseReceiver receiver = new ResponseReceiver();
+        registerReceiver(receiver, new IntentFilter("testMePlease"));
+        startService(new Intent(this, WifiScannerService.class));
     }
 
-    protected void onResume() {
-        super.onResume();
-    }
+    // Broadcast receiver for receiving status updates from the IntentService
+    private class ResponseReceiver extends BroadcastReceiver
+    {
+        // Prevents instantiation
+        private ResponseReceiver() {
+        }
+        // Called when the BroadcastReceiver gets an Intent it's registered to receive
+        public void onReceive(Context context, Intent intent) {
+            ArrayList<WifiInfo> infolist = intent.getParcelableArrayListExtra("info");
 
-    @Override
-    public void receiveWifiUpdate(ArrayList<WifiInfo> wifiInfoArrayList) {
-        TextView text = (TextView) findViewById(R.id.textOutput);
-        String out = "";
-        for (WifiInfo chunk : wifiInfoArrayList)
-            out += chunk.toString() + "\n";
-        text.setText(out);
+            Log.d("MIND", "Activity received WifiInfo Intent");
+
+            StringBuilder sb = new StringBuilder();
+            for (WifiInfo w : infolist){
+                sb.append(w.SSID);
+                sb.append('|');
+                sb.append(w.MAC);
+                sb.append('|');
+                sb.append(w.LEVEL);
+                sb.append('\n');
+            }
+            mainText.setText(sb.toString());
+        }
     }
 }

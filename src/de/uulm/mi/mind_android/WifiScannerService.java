@@ -57,7 +57,7 @@ public class WifiScannerService extends IntentService {
                         // TODO Auto-generated catch block
                         e.printStackTrace();
                     }
-                    Log.d("MIND","Waiting for scan results..");
+                    // Log.d("MIND","Waiting for scan results..");
                 }
             }
         }

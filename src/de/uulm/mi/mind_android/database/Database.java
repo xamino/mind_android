@@ -15,7 +15,7 @@ public class Database extends SQLiteOpenHelper {
     private static int DB_VERSION = 1;
 
     /**
-     * Constructur.
+     * Constructor.
      * @param context Application context.
      */
     public Database(Context context) {
@@ -29,12 +29,8 @@ public class Database extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE IF NOT EXISTS locations ( posID integer primary key autoincrement, posX INTEGER, posY INTEGER,"
-                + "info text, wifiOne INTEGER FOREIGN KEY REFERENCES wifiInfos(wifiID),"
-                + "wifiTwo INTEGER FOREIGN KEY REFERENCES wifiInfos(wifiID), "
-                + "wifiThree INTEGER FOREIGN KEY REFERENCES wifiInfos(wifiID), "
-                + "wifiFour INTEGER FOREIGN KEY REFERENCES wifiInfos(wifiID), "
-                + "wifiFive INTEGER FOREIGN KEY REFERENCES wifiInfos(wifiID)");
-        db.execSQL("CREATE TABLE IF NOT EXISTS wifiInfos ( wifiID integer primary key autoincrement, bssid text, mac "
+                + "info text, wifiOne INTEGER, FOREIGN KEY (wifiOne) REFERENCES wifiInfos(wifiID), wifiTwo INTEGER, FOREIGN KEY (wifiTwo) REFERENCES wifiInfos(wifiID), wifiThree INTEGER, FOREIGN KEY (wifiThree) REFERENCES wifiInfos(wifiID))");
+        db.execSQL("CREATE TABLE IF NOT EXISTS wifiInfos ( wifiID integer primary key autoincrement, ssid text, mac "
                 + "text, level INTEGER )");
     }
 

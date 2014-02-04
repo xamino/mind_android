@@ -15,8 +15,8 @@
             android:baselineAligned="true">
         <Button
                 android:layout_height="45dp" android:layout_width="125dp"
-                android:text="@string/refreshButtonLabel"
-                android:id="@+id/refreshButton" android:onClick="refreshScan"/>
+                android:text="@string/forceButtonLabel"
+                android:id="@+id/forceButton" android:onClick="forceLocation"/>
     </LinearLayout>
     <ScrollView
             android:layout_width="fill_parent"

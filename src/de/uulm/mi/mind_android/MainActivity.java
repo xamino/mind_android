@@ -1,15 +1,24 @@
 package de.uulm.mi.mind_android;
 
+import java.util.ArrayList;
+
 import android.app.Activity;
-import android.content.*;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
-import de.uulm.mi.mind_android.data.WifiInfo;
 
-import java.util.ArrayList;
+import com.nikkoaiello.mobile.android.PinchImageView;
+
+import de.uulm.mi.mind_android.data.WifiInfo;
+import de.uulm.mi.mind_android.img.ScaleImageView;
 
 public class MainActivity extends Activity {
 
@@ -33,6 +42,11 @@ public class MainActivity extends Activity {
 				
 			}
 		});
+        
+        ScaleImageView siv = (ScaleImageView) findViewById(R.id.img);
+        siv.setBackgroundColor(Color.WHITE);
+        
+
     }
 
     private void init() {

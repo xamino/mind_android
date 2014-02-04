@@ -17,7 +17,27 @@
                 android:layout_height="45dp" android:layout_width="125dp"
                 android:text="@string/forceButtonLabel"
                 android:id="@+id/forceButton" android:onClick="forceLocation"/>
+
+        
+
     </LinearLayout>
+    
+    <de.uulm.mi.mind_android.img.ScaleImageView
+        android:id="@+id/img"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:src="@drawable/o27_n3" />
+ 	<!-- <ImageView
+            android:id="@+id/img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/o27_n3" />
+    
+    
+     <de.uulm.mi.mind_android.img.TouchImageView
+	    android:id="@+id/img"
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent" />-->  
     <ScrollView
             android:layout_width="fill_parent"
             android:layout_height="0dip"

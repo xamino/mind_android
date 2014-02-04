@@ -14,7 +14,7 @@
             android:paddingBottom="5dp"
             android:baselineAligned="true">
         <Button
-                android:layout_height="45dp" android:layout_width="125dp"
+                android:layout_height="45dp" android:layout_width="150dp"
                 android:text="@string/forceButtonLabel"
                 android:id="@+id/forceButton" android:onClick="forceLocation"/>
     </LinearLayout>

@@ -23,8 +23,16 @@ public class MainActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-        Button b = (Button) findViewById(R.id.forceButton);
         init();
+        Button forceB = (Button) findViewById(R.id.forceButton);
+        forceB.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
     }
 
     private void init() {

@@ -23,16 +23,17 @@ public class MainActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-        init();
         // button to force location
         Button forceB = (Button) findViewById(R.id.forceButton);
         forceB.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
-				// TODO implement onClick
+				
 			}
 		});
+        
+        init();
     }
 
     private void init() {

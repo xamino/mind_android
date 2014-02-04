@@ -44,7 +44,7 @@ public class MainActivity extends Activity {
         public void onReceive(Context context, Intent intent) {
             ArrayList<WifiInfo> infolist = intent.getParcelableArrayListExtra("info");
 
-            Log.d("MIND", "Activity received WifiInfo Intent");
+            Log.d(TAG, "Activity received WifiInfo Intent");
 
             StringBuilder sb = new StringBuilder();
             for (WifiInfo w : infolist){

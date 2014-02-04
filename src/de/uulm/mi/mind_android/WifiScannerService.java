@@ -7,9 +7,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiManager;
-import android.os.Bundle;
 import android.util.Log;
-import android.widget.TextView;
 import de.uulm.mi.mind_android.data.WifiInfo;
 
 import java.util.ArrayList;

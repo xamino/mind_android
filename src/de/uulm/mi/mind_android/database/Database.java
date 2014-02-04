@@ -3,8 +3,11 @@ package de.uulm.mi.mind_android.database;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 public class Database extends SQLiteOpenHelper {
+
+    private final String TAG = "MIND|Database";
 
     /**
      * Database version. Incremented manually when the structure of the DB changes.
@@ -25,24 +28,27 @@ public class Database extends SQLiteOpenHelper {
      */
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE IF NOT EXISTS locations ( posID INTEGER NOT NULL PRIMARY KEY, posX INTEGER, posY INTEGER,"
-                + "info VARCHAR, wifiOne INTEGER FOREIGN KEY REFERENCES wifiInfos(wifiID),"
+        db.execSQL("CREATE TABLE IF NOT EXISTS locations ( posID integer primary key autoincrement, posX INTEGER, posY INTEGER,"
+                + "info text, wifiOne INTEGER FOREIGN KEY REFERENCES wifiInfos(wifiID),"
                 + "wifiTwo INTEGER FOREIGN KEY REFERENCES wifiInfos(wifiID), "
                 + "wifiThree INTEGER FOREIGN KEY REFERENCES wifiInfos(wifiID), "
                 + "wifiFour INTEGER FOREIGN KEY REFERENCES wifiInfos(wifiID), "
                 + "wifiFive INTEGER FOREIGN KEY REFERENCES wifiInfos(wifiID)");
-        db.execSQL("CREATE TABLE IF NOT EXISTS wifiInfos ( wifiID INTEGER NOT NULL PRIMARY KEY, bssid VARCHAR, mac"
-                + "VARCHAR, level INTEGER )");
+        db.execSQL("CREATE TABLE IF NOT EXISTS wifiInfos ( wifiID integer primary key autoincrement, bssid text, mac "
+                + "text, level INTEGER )");
     }
 
     /**
-     * Not yet implemented!
+     * Deletes old database and creates new, empty structure. All data is lost!
      * @param db
      * @param oldVersion
      * @param newVersion
      */
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        //TODO implement when necessary
+        Log.w(TAG, "Upgrading database, this will destroy all previous data!");
+        db.execSQL("DROP TABLE IF EXISTS locations");
+        db.execSQL("DROP TABLE IF EXISTS wifiInfos");
+        onCreate(db);
     }
 }

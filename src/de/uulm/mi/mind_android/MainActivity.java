@@ -46,18 +46,13 @@ public class MainActivity extends Activity {
      */
     public void saveLocation(View v) {
 
-        Log.d(TAG + "|DEBUG", ""+siv.getCoordX()+"/"+siv.getCoordY() + " - " + siv.mIntrinsicHeight + " " + siv.mHeight);
+        SQLiteDatabase database;
 
-
-/*        SQLiteDatabase database;
-
-
-
-       Database helper = new Database(getApplicationContext());
+        Database helper = new Database(getApplicationContext());
         database = helper.getWritableDatabase();
 
         for (WifiInfo chunck : wifiList) {
-            database.execSQL("INSERT INTO wifiInfos (ssid, mac, level, xCoord, yCoord) VALUES ('" + chunck.SSID + "', '" + chunck.MAC + "', '" + chunck.LEVEL + "')");
+            database.execSQL("INSERT INTO wifiInfos (ssid, mac, level, xCoord, yCoord) VALUES ('" + chunck.SSID + "', '" + chunck.MAC + "', '" + chunck.LEVEL + "', '" + siv.getCoordX() + "', '" + siv.getCoordY() + "')");
         }
 
         Cursor cur = database.query("wifiInfos", null, null, null, null, null, null);
@@ -65,7 +60,7 @@ public class MainActivity extends Activity {
         // TODO only for debugging, values also need to be deleted sometimes :P
         while (cur.moveToNext()) {
             Log.d(TAG + "|DEBUG", "" + cur.getString(1));
-        }*/
+        }
     }
 
     private void init() {

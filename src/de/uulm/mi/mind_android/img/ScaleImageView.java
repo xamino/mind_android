@@ -119,7 +119,7 @@ public class ScaleImageView extends ImageView implements OnTouchListener {
         return mMatrixValues[whichValue];
     }
 
-    protected float getScale() {
+    public float getScale() {
         return getValue(mMatrix, Matrix.MSCALE_X);
     }
 
@@ -132,11 +132,11 @@ public class ScaleImageView extends ImageView implements OnTouchListener {
     }
 
     public float getCoordX(){
-        return (-getTranslateX() + (mWidth / 2)) /  (mIntrinsicWidth / mWidth);// Center of view!
+        return (-getTranslateX() + (mWidth / 2)) / (getScale()*1.5f);
     }
 
     public float getCoordY(){
-        return (-getTranslateY() + (mHeight / 2)) /  (mIntrinsicHeight / mHeight);// Center of view???
+        return (-getTranslateY() + (mHeight / 2)) / (getScale()*1.5f);
     }
 
     protected void maxZoomTo(int x, int y) {

@@ -2,5 +2,5 @@
 <resources>
     <string name="app_name">mind_android</string>
     <string name="refreshButtonLabel">Refresh</string>
-    <string name="forceButtonLabel">Force Location</string>
+    <string name="saveLocationButtonLabel">Save Location</string>
 </resources>

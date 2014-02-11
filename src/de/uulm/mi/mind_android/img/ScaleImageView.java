@@ -21,10 +21,10 @@ public class ScaleImageView extends ImageView implements OnTouchListener {
 
     // display width height.
     private int mWidth;
-    private int mHeight;
+    public int mHeight;
 
     private int mIntrinsicWidth;
-    private int mIntrinsicHeight;
+    public int mIntrinsicHeight;
 
     private float mScale;
     private float mMinScale;
@@ -123,12 +123,20 @@ public class ScaleImageView extends ImageView implements OnTouchListener {
         return getValue(mMatrix, Matrix.MSCALE_X);
     }
 
-    public float getTranslateX() {
+    protected float getTranslateX() {
         return getValue(mMatrix, Matrix.MTRANS_X);
     }
 
     protected float getTranslateY() {
         return getValue(mMatrix, Matrix.MTRANS_Y);
+    }
+
+    public float getCoordX(){
+        return (-getTranslateX() + (mWidth / 2)) /  (mIntrinsicWidth / mWidth);// Center of view!
+    }
+
+    public float getCoordY(){
+        return (-getTranslateY() + (mHeight / 2)) /  (mIntrinsicHeight / mHeight);// Center of view???
     }
 
     protected void maxZoomTo(int x, int y) {

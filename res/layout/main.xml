@@ -15,18 +15,26 @@
             android:baselineAligned="true">
         <Button
                 android:layout_height="45dp" android:layout_width="150dp"
-                android:text="@string/forceButtonLabel"
-                android:id="@+id/forceButton" android:onClick="forceLocation"/>
+                android:text="@string/saveLocationButtonLabel"
+                android:id="@+id/saveLocationButton" android:onClick="saveLocation"/>
 
         
 
     </LinearLayout>
-    
-    <de.uulm.mi.mind_android.img.ScaleImageView
-        android:id="@+id/img"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:src="@drawable/o27_n3" />
+
+    <RelativeLayout android:layout_width="fill_parent" android:layout_height="fill_parent">
+        <de.uulm.mi.mind_android.img.ScaleImageView
+                android:id="@+id/img"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:src="@drawable/o27_n3" />
+        <ImageView
+                android:id="@+id/imgOverlay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:src="@drawable/crosshair"
+                android:layout_alignParentEnd="false" android:layout_centerInParent="true"/>
+    </RelativeLayout>
+
  	<!-- <ImageView
             android:id="@+id/img"
             android:layout_width="wrap_content"

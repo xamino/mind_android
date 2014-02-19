@@ -12,7 +12,7 @@ public class Database extends SQLiteOpenHelper {
     /**
      * Database version. Incremented manually when the structure of the DB changes.
      */
-    private static int DB_VERSION = 1;
+    private static int DB_VERSION = 2;
 
     /**
      * Constructor.

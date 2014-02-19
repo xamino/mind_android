@@ -28,9 +28,7 @@ public class Database extends SQLiteOpenHelper {
      */
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE IF NOT EXISTS locations ( posID integer primary key autoincrement, posX INTEGER, posY INTEGER,"
-                + "info text, wifiOne INTEGER, FOREIGN KEY (wifiOne) REFERENCES wifiInfos(wifiID), wifiTwo INTEGER, FOREIGN KEY (wifiTwo) REFERENCES wifiInfos(wifiID), wifiThree INTEGER, FOREIGN KEY (wifiThree) REFERENCES wifiInfos(wifiID))");
-        db.execSQL("CREATE TABLE IF NOT EXISTS wifiInfos ( wifiID integer primary key autoincrement, ssid text, mac "
+        db.execSQL("CREATE TABLE IF NOT EXISTS wifiInfos ( wifiID integer primary key autoincrement, posX INTEGER, posY INTEGER, ssid text, mac "
                 + "text, level INTEGER )");
     }
 
@@ -43,7 +41,6 @@ public class Database extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         Log.w(TAG, "Upgrading database, this will destroy all previous data!");
-        db.execSQL("DROP TABLE IF EXISTS locations");
         db.execSQL("DROP TABLE IF EXISTS wifiInfos");
         onCreate(db);
     }

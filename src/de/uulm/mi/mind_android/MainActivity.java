@@ -51,16 +51,19 @@ public class MainActivity extends Activity {
         Database helper = new Database(getApplicationContext());
         database = helper.getWritableDatabase();
 
+        // Add wifi access point levels
         for (WifiInfo chunck : wifiList) {
-            database.execSQL("INSERT INTO wifiInfos (ssid, mac, level, xCoord, yCoord) VALUES ('" + chunck.SSID + "', '" + chunck.MAC + "', '" + chunck.LEVEL + "', '" + siv.getCoordX() + "', '" + siv.getCoordY() + "')");
+            database.execSQL("INSERT INTO wifiInfos (posX, posY, ssid, mac, level) " +
+                    "VALUES ('" + siv.getCoordX() + "', '"+ siv.getCoordY() + "', '" + chunck.SSID + "', '" + chunck.MAC + "', '" + chunck.LEVEL + "')");
         }
 
         Cursor cur = database.query("wifiInfos", null, null, null, null, null, null);
 
         // TODO only for debugging, values also need to be deleted sometimes :P
         while (cur.moveToNext()) {
-            Log.d(TAG + "|DEBUG", "" + cur.getString(1));
+            Log.d(TAG + "|DEBUG", "" + cur.getString(1) + "; " + cur.getString(2) + "; " + cur.getString(3) +"; " + cur.getString(4) + "; " + cur.getString(5) );
         }
+
     }
 
     private void init() {

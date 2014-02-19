@@ -23,7 +23,7 @@ public class WifiInfo implements Parcelable {
     }
 
     public WifiInfo(Parcel in) {
-        Log.d("MIND", "Init WifiInfo from Parcel");
+        //Log.d("MIND", "Init WifiInfo from Parcel");
         this.SSID = in.readString();
         this.MAC = in.readString();
         this.LEVEL = in.readLong();
@@ -36,7 +36,7 @@ public class WifiInfo implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        Log.d("MIND", "Write WifiInfo to Parcel");
+        //Log.d("MIND", "Write WifiInfo to Parcel");
         dest.writeString (SSID);
         dest.writeString (MAC);
         dest.writeLong(LEVEL);
@@ -47,13 +47,13 @@ public class WifiInfo implements Parcelable {
     {
         public WifiInfo createFromParcel(Parcel in)
         {
-            Log.d("MIND", "Parcel.Creator create WifiInfo from Parcel");
+            //Log.d("MIND", "Parcel.Creator create WifiInfo from Parcel");
             return new WifiInfo(in);
         }
 
         public WifiInfo[] newArray (int size)
         {
-            Log.d("MIND", "Parcel.Creator create WifiInfo[]");
+            //Log.d("MIND", "Parcel.Creator create WifiInfo[]");
             return new WifiInfo[size];
         }
     };

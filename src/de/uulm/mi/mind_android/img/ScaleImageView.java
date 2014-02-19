@@ -168,26 +168,41 @@ public class ScaleImageView extends ImageView implements OnTouchListener {
     }
 
     public void cutting() {
+
+        int paddingX = (mWidth / 2);
+        int paddingY = (mHeight / 2);
+
         int width = (int) (mIntrinsicWidth * getScale());
         int height = (int) (mIntrinsicHeight * getScale());
-        if (getTranslateX() < -(width - mWidth)) {
-            mMatrix.postTranslate(-(getTranslateX() + width - mWidth), 0);
+
+        // right border
+        if (getTranslateX() < -width + mWidth -paddingX) {
+            mMatrix.postTranslate(-getTranslateX() - width + mWidth -paddingX , 0);
         }
-        if (getTranslateX() > 0) {
-            mMatrix.postTranslate(-getTranslateX(), 0);
+
+        // left border
+        if (getTranslateX() > paddingX) {
+            mMatrix.postTranslate(-getTranslateX() + paddingX, 0);
         }
-        if (getTranslateY() < -(height - mHeight)) {
-            mMatrix.postTranslate(0, -(getTranslateY() + height - mHeight));
+
+        // bottom border
+        if (getTranslateY() < -height + mHeight -paddingY)  {
+            mMatrix.postTranslate(0, -getTranslateY() -height + mHeight -paddingY);
         }
-        if (getTranslateY() > 0) {
-            mMatrix.postTranslate(0, -getTranslateY());
+
+        //top border
+        if (getTranslateY() > paddingY) {
+            mMatrix.postTranslate(0, -getTranslateY() +paddingY);
         }
+
+
+/* //centers the view on zoom out, requires some adjustments
         if (width < mWidth) {
             mMatrix.postTranslate((mWidth - width) / 2, 0);
         }
         if (height < mHeight) {
             mMatrix.postTranslate(0, (mHeight - height) / 2);
-        }
+        }*/
         setImageMatrix(mMatrix);
     }
 
